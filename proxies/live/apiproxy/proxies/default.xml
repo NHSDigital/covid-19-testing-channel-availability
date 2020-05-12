@@ -9,7 +9,7 @@
           <Name>AssignMessage.RemoveAuthorizationHeader</Name>
         </Step>
         <Step>
-          <Name>VerifyApiKey.FromQueryString</Name>
+          <Name>VerifyApiKey.FromVariable</Name>
         </Step>
       </Request>
     </PreFlow>
