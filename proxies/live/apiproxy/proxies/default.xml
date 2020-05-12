@@ -16,7 +16,17 @@
         <Condition>(oauthV2.VerifyApiKey.FromHeader.failed)</Condition>
       </FaultRule>
     </FaultRules>
-    <Flows/>
+    <Flows>
+      <Flow name="OptionsPreFlight">
+        <Request/>
+        <Response>
+        <Step>
+            <Name>AssignMessage.AddCors</Name>
+          </Step>
+        </Response>
+        <Condition>request.verb == "OPTIONS" AND request.header.origin != null AND request.header.Access-Control-Request-Method != null</Condition>
+      </Flow>
+    </Flows>
     <PreFlow name="PreFlow">
       <Request>
         <Step>
@@ -29,10 +39,13 @@
     </PreFlow>
     <PostClientFlow/>
     <HTTPProxyConnection>
-        <BasePath>{{ SERVICE_BASE_PATH }}</BasePath>
-        <VirtualHost>secure</VirtualHost>
+      <BasePath>{{ SERVICE_BASE_PATH }}</BasePath>
+      <VirtualHost>secure</VirtualHost>
     </HTTPProxyConnection>
-    <RouteRule>
+    <RouteRule name="NoRoute">
+      <Condition>request.verb == "OPTIONS" AND request.header.origin != null AND request.header.Access-Control-Request-Method != null</Condition>
+    </RouteRule>
+    <RouteRule name="upstream">
         <TargetEndpoint>upstream</TargetEndpoint>
     </RouteRule>
 </ProxyEndpoint>
