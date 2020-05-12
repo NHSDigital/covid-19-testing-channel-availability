@@ -3,6 +3,9 @@
     <PreFlow name="PreFlow">
       <Request>
         <Step>
+          <Name>ExtractVariable.ApiKeyFromVariable</Name>
+        </Step>
+        <Step>
           <Name>VerifyApiKey.FromQueryString</Name>
         </Step>
       </Request>

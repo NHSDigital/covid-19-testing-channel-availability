@@ -1,0 +1,4 @@
+<VerifyAPIKey async="false" continueOnError="false" enabled="true" name="VerifyApiKey.FromVariable">
+    <Properties/>
+    <APIKey ref="clientrequest.apikey"/>
+</VerifyAPIKey>
