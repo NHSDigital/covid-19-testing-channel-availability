@@ -1,82 +1,174 @@
-# This is an OpenAPI Specification (https://swagger.io/specification/)
-# for the Personal Demographics Service (PDS) API
-# owned by NHS Digital (https://digital.nhs.uk/)
-openapi: "3.0.0"
+openapi: 3.0.0
+
 info:
-  version: "{VERSION}"
-  title: Template API
-  description: |
-    ## Overview
-    TODO
-    
-    You can:
-    * TODO
-
-    You cannot currently use this API to:
-    * TODO
-    
-    You can access the following data:
-    * TODO
-
-    ## Related APIs
-    TODO
-    
-    ## API status and roadmap
-    TODO
-    
-    The following items are on our roadmap, in rough priority order:
-    - TODO
-    
-    We are extremely keen to receive feedback on the API during alpha and beta,
-    for example if there are data fields missing that you think you need.
-    Please [get in touch](/help-and-support) with any comments or suggestions.
-
-    ## Technology
-    This API is [RESTful](/introduction-to-apis#basic-rest).
-
-    It also conforms to the [FHIR](/introduction-to-apis#fhir) global standard for health care data exchange.
-    Specifically, it is aligned with [FHIR UK Core](https://digital.nhs.uk/services/fhir-uk-core), which is built on FHIR Release 4.
-
-    You don’t need to know much about FHIR to use this API - FHIR APIs are just RESTful APIs that follow specific rules.
-    In particular:
-    - resource names are capitalised and singular, for example the `/Patient` not `/patients`
-    - array names are singular, for example `line` not `lines` for address lines
-    - data items that are country-specific and thus not included in the FHIR global base resources are usually wrapped in an `extension` object
-
-    This API is available on the Internet, although access using NHS smartcards (see below)
-    currently requires a connection to the [Health and Social Care Network (HSCN)](https://digital.nhs.uk/services/health-and-social-care-network).
-
-    ## Authorisation
-    TODO
-    
-    ## Testing
-    You can test this API in:
-    * our [sandbox environment](/testing#sandbox-testing) for initial developer testing
-    * our [integration test environment](/testing#integration-testing) for formal integration testing (coming soon)
-
-    Our sandbox environment is a very basic simulation of the live service. It only covers a limited set of scenarios and is stateless, so does not actually persist any updates.
-
-    For more details on sandbox testing, or to try out the sandbox using our "Try this API" feature, see the documentation for each endpoint.
-
-    Alternatively, you can try out the sandbox using our Postman collection:
-
-    [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2871d49488699f3f5a67)
-
-    ## Assurance
-    We are hoping to make the assurance process as lightweight and as self-service as possible.
-
-    More details to follow.
-
-    ## Endpoints
-    TODO
+  version: "0.2"
+  title: COVID-19 Testing Channel Availability Service
   contact:
-    name: Template API Support
-    url: 'https://tbc.api.nhs.net'
-    email: tbc-api-support@nhs.net
-servers:
-  - url: 'https://emea-demo8-test.apigee.net/TODO sandbox endpoint'
-    description: Sandbox service.
+    name: "API Management Support"
+    email: "api.management@nhs.net"
 tags:
-  - name: #TODO declare tags
+  - name: Channel Availablity Service
+    description: API to provide status information on channels available to delivery COVID-19 tests
+servers:
+- url: "https://int.api.service.nhs.uk/covid-19-testing-channel-availability"
+  description: "Integration Test Environment"
 paths:
-#TODO add endpoints
+  /status:
+    get:
+      operationId: getStatus
+      tags:
+      - Channel Availability
+      summary: Returns the status information on channels available to delivery COVID-19 tests.
+      parameters:
+      - in: header
+        name: X-Correlation-ID
+        required: false
+        description: Identifier used to track requests across systems. Should be output in any logs
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChannelAvailabilityStatusResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorised"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+components:
+  schemas:
+    ChannelAvailabilityStatusResponse:
+      type: object
+      required:
+        - keyworker
+        - citizen
+      properties:
+        keyworker:
+          allOf:
+            - $ref: '#/components/schemas/ParticipantAvailability'
+          description: Availablity of channels for key workers
+        citizen:
+          allOf:
+            - $ref: '#/components/schemas/ParticipantAvailability'
+          description: Availablity of channels for citizens
+    ParticipantAvailability:
+      type: object
+      required:
+        - home
+        - testCentre
+      properties:
+        home:
+          type: boolean
+          description: Availability of the home channel for the participant grouping
+        testCentre:
+          $ref: '#/components/schemas/TestCentreAvailability'
+    TestCentreAvailability:
+      type: object
+      required:
+        - regions
+        - subRegions
+      properties:
+        available:
+          type: boolean
+          description: Deprecated value to set availabilty across all nations
+        regions:
+          $ref: '#/components/schemas/RegionAvailability'
+        subRegions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubRegionAvailability'
+    RegionAvailability:
+      type: object
+      required:
+        - GB-ENG
+        - GB-WLS
+        - GB-SCT
+        - GB-NIR
+      properties:
+        GB-ENG:
+          type: boolean
+          description: The availability of testing centres within England
+        GB-WLS:
+          type: boolean
+          description: The availability of testing centres within Wales
+        GB-SCT:
+          type: boolean
+          description: The availability of testing centres within Scotland
+        GB-NIR:
+          type: boolean
+          description: The availability of testing centres within Northern Ireland
+    SubRegionAvailability:
+      type: object
+      required:
+        - id
+        - description
+        - available
+        - region
+        - availabilityLevel
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The id of the sub-region
+        description:
+          type: string
+          description: The sub-region description in human-readable format
+          example: Yorkshire and the North-East
+        available:
+          type: boolean
+          description: The availability of testing centres within the sub-region
+        region:
+          type: string
+          enum:
+            - GB-ENG
+            - GB-WLS
+            - GB-SCT
+            - GB-NIR
+          description: The region to which the sub-region belogs.
+        availabilityLevel:
+          type: string
+          description: The level of appointment availability
+          example: Good availablity
+    Error:
+      type: object
+      required:
+        - statusCode
+        - message
+      properties:
+        statusCode:
+          type: integer
+          description: Status code of the error
+        message:
+          type: string
+          description: Description of the error
+  responses:
+    BadRequest:
+      description: The request was badly formed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The specified subject was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorised:
+      description: Unauthorised. The client lacks authentication credentials for this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden. The authenticated client is not allowed to perform the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
