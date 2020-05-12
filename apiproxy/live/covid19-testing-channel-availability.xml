@@ -1,4 +1,4 @@
-<APIProxy name="template-api">
+<APIProxy name="covid19-testing-channel-availability">
   <!-- This is the root of the application -->
-  <Description>Proxy to a target service.</Description>
+  <Description>Proxy to Covid-19 Testing Channel Availability.</Description>
 </APIProxy>
