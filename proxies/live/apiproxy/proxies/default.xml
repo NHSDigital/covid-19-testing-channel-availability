@@ -4,7 +4,7 @@
         <Step>
           <Name>AssignMessage.NoApiKeyErrorResponse</Name>
         </Step>
-        <Condition>(fault.name Matches "FailedToResolveAPIKey")</Condition>
+        <Condition>oauth.v2.FailedToResolveAPIKey</Condition>
       </FaultRule>
       <FaultRule name="invalid_api_key">
         <Step>
