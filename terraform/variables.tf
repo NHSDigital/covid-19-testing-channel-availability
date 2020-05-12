@@ -18,3 +18,8 @@ variable "namespace" {
   description = "Namespace to deploy proxies etc. in to, for canaries or deploys. To make it prettier, start with a hyphen (e.g. '-apm-123')."
   default = ""
 }
+
+variable "covid-19-testing-channel-availability-host" {
+    type = string
+    description = "upstream host"
+}
