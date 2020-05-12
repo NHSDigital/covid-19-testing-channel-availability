@@ -1,8 +1,0 @@
-<AssignMessage continueOnError="false" enabled="true" name="AssignMessage.RemoveAuthorizationHeader">
-  <Remove>
-    <Headers>
-      <Header name="Authorization"/>
-    </Headers>
-  </Remove>
-  <AssignTo createNew="false" transport="http" type="request"/>
-</AssignMessage>

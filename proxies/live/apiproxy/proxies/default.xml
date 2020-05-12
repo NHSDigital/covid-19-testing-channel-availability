@@ -13,20 +13,17 @@
         <Step>
           <Name>AssignMessage.BadApiKeyErrorResponse</Name>
         </Step>
-        <Condition>(oauthV2.VerifyApiKey.FromVariable.failed)</Condition>
+        <Condition>(oauthV2.VerifyApiKey.FromHeader.failed)</Condition>
       </FaultRule>
     </FaultRules>
     <Flows/>
     <PreFlow name="PreFlow">
       <Request>
         <Step>
-          <Name>ExtractVariable.ApiKeyFromAuthorizationHeader</Name>
+          <Name>VerifyApiKey.FromHeader</Name>
         </Step>
         <Step>
-          <Name>AssignMessage.RemoveAuthorizationHeader</Name>
-        </Step>
-        <Step>
-          <Name>VerifyApiKey.FromVariable</Name>
+          <Name>AssignMessage.RemoveApiKeyHeader</Name>
         </Step>
       </Request>
     </PreFlow>
