@@ -1,21 +1,4 @@
 <ProxyEndpoint name="default">
-    <FaultRules>
-      <FaultRule name="no_api_key">
-        <Step>
-          <Name>AssignMessage.NoApiKeyErrorResponse</Name>
-        </Step>
-        <Condition>oauth.v2.FailedToResolveAPIKey</Condition>
-      </FaultRule>
-      <FaultRule name="invalid_api_key">
-        <Step>
-          <Name>ExtractVariables.VerifyApiKeyFaultString</Name>
-        </Step>
-        <Step>
-          <Name>AssignMessage.BadApiKeyErrorResponse</Name>
-        </Step>
-        <Condition>(oauthV2.VerifyApiKey.FromHeader.failed)</Condition>
-      </FaultRule>
-    </FaultRules>
     <Flows>
       <Flow name="OptionsPreFlight">
         <Request/>
@@ -28,14 +11,7 @@
       </Flow>
     </Flows>
     <PreFlow name="PreFlow">
-      <Request>
-        <Step>
-          <Name>VerifyApiKey.FromHeader</Name>
-        </Step>
-        <Step>
-          <Name>AssignMessage.RemoveApiKeyHeader</Name>
-        </Step>
-      </Request>
+      <Request/>
     </PreFlow>
     <PostClientFlow/>
     <HTTPProxyConnection>
