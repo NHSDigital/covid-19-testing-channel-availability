@@ -3,7 +3,7 @@
     <PreFlow name="PreFlow">
       <Request>
         <Step>
-          <Name>ExtractVariable.ApiKeyFromVariable</Name>
+          <Name>ExtractVariable.ApiKeyFromAuthorizationHeader</Name>
         </Step>
         <Step>
           <Name>AssignMessage.RemoveAuthorizationHeader</Name>
