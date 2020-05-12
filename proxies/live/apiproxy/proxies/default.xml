@@ -1,6 +1,23 @@
 <ProxyEndpoint name="default">
     <Flows/>
     <PreFlow name="PreFlow">
+      <FaultRules>
+        <FaultRule name="no_api_key">
+          <Step>
+            <Name>AssignMessage.NoApiKeyErrorResponse</Name>
+          </Step>
+          <Condition>(fault.name Matches "FailedToResolveAPIKey")</Condition>
+        </FaultRule>
+        <FaultRule name="invalid_api_key">
+          <Step>
+            <Name>ExtractVariables.VerifyApiKeyFaultString</Name>
+          </Step>
+          <Step>
+            <Name>AssignMessage.BadApiKeyErrorResponse</Name>
+          </Step>
+          <Condition>(oauthV2.VerifyApiKey.FromVariable.failed)</Condition>
+        </FaultRule>
+      </FaultRules>
       <Request>
         <Step>
           <Name>ExtractVariable.ApiKeyFromAuthorizationHeader</Name>
