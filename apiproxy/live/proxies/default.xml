@@ -3,7 +3,7 @@
     <PreFlow name="PreFlow"/>
     <PostClientFlow/>
     <HTTPProxyConnection>
-        <BasePath>/covid19-testing-channel-availability</BasePath>
+        <BasePath>{{ SERVICE_BASE_PATH }}</BasePath>
         <VirtualHost>secure</VirtualHost>
     </HTTPProxyConnection>
     <RouteRule>
