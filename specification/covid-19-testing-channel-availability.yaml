@@ -28,7 +28,7 @@ paths:
           type: string
           format: uuid
       security:
-        - BearerAuth: []
+        - ApiKeyAuth: []
       responses:
         "200":
           description: OK
@@ -45,9 +45,10 @@ paths:
 
 components:
   securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
   schemas:
     ChannelAvailabilityStatusResponse:
       type: object
