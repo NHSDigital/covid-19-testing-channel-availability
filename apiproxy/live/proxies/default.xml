@@ -1,6 +1,12 @@
 <ProxyEndpoint name="default">
     <Flows/>
-    <PreFlow name="PreFlow"/>
+    <PreFlow name="PreFlow">
+      <Request>
+        <Step>
+          <Name>VerifyApiKey.FromQueryString</Name>
+        </Step>
+      </Request>
+    </PreFlow>
     <PostClientFlow/>
     <HTTPProxyConnection>
         <BasePath>{{ SERVICE_BASE_PATH }}</BasePath>
