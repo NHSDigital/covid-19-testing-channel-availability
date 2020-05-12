@@ -1,15 +1,12 @@
 <ProxyEndpoint name="default">
-    <PreFlow/>
+    <Flows/>
+    <PreFlow name="PreFlow"/>
+    <PostClientFlow/>
     <HTTPProxyConnection>
-        <!-- Populated during deploy ment by scripts/deploy_proxy.sh -->
-        <BasePath>/PROXY_BASE_PATH</BasePath>
+        <BasePath>/covid19-testing-channel-availability</BasePath>
         <VirtualHost>secure</VirtualHost>
     </HTTPProxyConnection>
-    <RouteRule name="sandbox">
-        <Condition>environment.name="test"</Condition>
-        <TargetEndpoint>sandbox</TargetEndpoint>
-    </RouteRule>
-    <RouteRule name="ig3">
-        <TargetEndpoint>ig3</TargetEndpoint>
+    <RouteRule>
+        <TargetEndpoint>upstream</TargetEndpoint>
     </RouteRule>
 </ProxyEndpoint>
