@@ -7,7 +7,6 @@ install-python:
 
 install-node:
 	npm install
-	cd sandbox && npm install
 
 install-hooks:
 	cp scripts/pre-commit .git/hooks/pre-commit
@@ -32,23 +31,23 @@ publish: clean
 	mkdir -p build
 	npm run publish 2> /dev/null
 
-serve: update-examples
+serve:
 	npm run serve
 
 check-licenses:
 	npm run check-licenses
 	scripts/check_python_licenses.sh
 
-deploy-proxy: update-examples
+deploy-proxy:
 	scripts/deploy_proxy.sh
 
-deploy-spec: update-examples
+deploy-spec:
 	scripts/deploy_spec.sh
 
 format:
 	poetry run black **/*.py
 
-sandbox: update-examples
+sandbox:
 	cd sandbox && npm run start
 
 build-proxy:

@@ -5,8 +5,8 @@ list:
 
 build:
 	rm -rf ./dist || true
-	mkdir ./dist
-	cp -r ./live ./dist
+	mkdir -p ./dist/apiproxy
+	cp -r ./live/* ./dist/apiproxy
 
 deploy-live: build
 	cd ./dist && apigeetool deployproxy -V -o nhsd-nonprod -e internal-dev -n covid19-testing-channel-availability -t $$(get_token)
