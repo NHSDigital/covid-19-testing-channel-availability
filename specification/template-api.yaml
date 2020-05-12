@@ -27,6 +27,8 @@ paths:
         schema:
           type: string
           format: uuid
+      security:
+        - BearerAuth: []
       responses:
         "200":
           description: OK
@@ -42,6 +44,10 @@ paths:
           $ref: "#/components/responses/Forbidden"
 
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
   schemas:
     ChannelAvailabilityStatusResponse:
       type: object
