@@ -4,7 +4,7 @@ dist/
 build/
 public/
 newman/
-
+.idea/
 .#*
 
 __pycache__/
