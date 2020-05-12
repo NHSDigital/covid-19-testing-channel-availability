@@ -33,4 +33,12 @@ resource "apigee_target_server" "coid-19-testing-availablity" {
     env     = var.apigee_environment
     enabled = true
     port    = 443
+
+    ssl_info {
+      ssl_enabled              = true
+      client_auth_enabled      = false
+      ignore_validation_errors = false
+      ciphers                  = []
+      protocols                = []
+    }
 }
