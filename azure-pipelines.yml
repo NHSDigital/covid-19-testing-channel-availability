@@ -4,7 +4,6 @@ trigger:
   branches:
     include:
       - tags/refs/v*
-      - master
   tags:
     include:
       - v*
