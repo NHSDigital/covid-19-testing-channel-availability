@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <TargetEndpoint name="upstream">
-    <FaultRules>
-      <FaultRule name="no_api_key">
+  <FaultRules>
+    <FaultRule name="no_api_key">
         <Step>
           <Name>AssignMessage.NoApiKeyErrorResponse</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddCors</Name>
         </Step>
         <Condition>oauth.v2.FailedToResolveAPIKey</Condition>
       </FaultRule>
@@ -13,6 +16,9 @@
         </Step>
         <Step>
           <Name>AssignMessage.BadApiKeyErrorResponse</Name>
+        </Step>
+        <Step>
+          <Name>AssignMessage.AddCors</Name>
         </Step>
         <Condition>(oauthV2.VerifyApiKey.FromHeader.failed)</Condition>
       </FaultRule>
