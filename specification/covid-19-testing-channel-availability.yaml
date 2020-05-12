@@ -3,12 +3,14 @@ openapi: 3.0.0
 info:
   version: "0.2"
   title: COVID-19 Testing Channel Availability Service
+  description: API to provide status information on channels available to delivery COVID-19 tests
   contact:
     name: "API Management Support"
     email: "api.management@nhs.net"
+  
 tags:
   - name: Channel Availablity Service
-    description: API to provide status information on channels available to delivery COVID-19 tests
+    
 servers:
 - url: "https://int.api.service.nhs.uk/covid-19-testing-channel-availability"
   description: "Integration Test Environment"
