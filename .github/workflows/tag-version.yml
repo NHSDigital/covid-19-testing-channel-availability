@@ -50,19 +50,11 @@ jobs:
       - name: Install repo
         run: make install
 
-      - name: Start local sandbox server
-        run: |
-          cd sandbox
-          npm run start &
-
       - name: Check licenses
         run: make check-licenses
 
       - name: Lint
         run: make lint
-
-      - name: Check resources are valid FHIR 4.0.1
-        run: make validate
 
       - name: Compile spec
         run: make publish
