@@ -21,12 +21,8 @@ test:
 
 lint:
 	npm run lint
-	cd sandbox && npm run lint && cd ..
 	poetry run flake8 **/*.py
 	find -name '*.sh' | grep -v node_modules | xargs shellcheck
-
-validate: generate-examples
-	java -jar bin/org.hl7.fhir.validator.jar build/examples/**/*application_fhir+json*.json -version 4.0.1 -tx n/a | tee /tmp/validation.txt
 
 clean:
 	rm -rf build
@@ -38,15 +34,6 @@ publish: clean
 
 serve: update-examples
 	npm run serve
-
-generate-examples: publish clean
-	mkdir -p build/examples
-	poetry run python scripts/generate_examples.py build/template-api.json build/examples
-
-update-examples: generate-examples
-	#TODO copy and standardise examples e.g.:
-	jq -rM . <build/examples/resources/Patient.json >specification/components/examples/Patient.json
-	make publish
 
 check-licenses:
 	npm run check-licenses
