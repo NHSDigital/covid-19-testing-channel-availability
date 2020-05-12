@@ -3,6 +3,11 @@
     <FaultRules/>
     <PreFlow>
         <Request/>
+        <Response>
+          <Step>
+            <Name>AssignMessage.AddCors</Name>
+          </Step>
+        </Response>
     </PreFlow>
     <HTTPTargetConnection>
       <LoadBalancer>
