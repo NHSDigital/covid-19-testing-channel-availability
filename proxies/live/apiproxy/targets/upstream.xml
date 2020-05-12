@@ -6,7 +6,7 @@
     </PreFlow>
     <HTTPTargetConnection>
       <LoadBalancer>
-        <Server name="covid-19-testing-availability-channel"/>
+        <Server name="covid-19-testing-channel-availability"/>
       </LoadBalancer>
     </HTTPTargetConnection>
 </TargetEndpoint>
