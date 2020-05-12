@@ -6,6 +6,9 @@
           <Name>ExtractVariable.ApiKeyFromVariable</Name>
         </Step>
         <Step>
+          <Name>AssignMessage.RemoveAuthorizationHeader</Name>
+        </Step>
+        <Step>
           <Name>VerifyApiKey.FromQueryString</Name>
         </Step>
       </Request>
