@@ -1,4 +1,0 @@
-<VerifyAPIKey async="false" continueOnError="false" enabled="true" name="VerifyApiKey.FromQueryString">
-    <Properties/>
-    <APIKey ref="request.queryparam.apikey"/>
-</VerifyAPIKey>
