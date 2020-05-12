@@ -4,6 +4,7 @@ trigger:
   branches:
     include:
       - tags/refs/v*
+      - master
   tags:
     include:
       - v*
@@ -63,15 +64,6 @@ jobs:
             "$(Agent.OS)" | "node" | package-lock.json
             "$(Agent.OS)" | "node"
           
-      - task: Cache@2
-        displayName: "Cache Sandbox NPM Dependencies"
-        inputs:
-          key: '"$(Agent.OS)" | "node-sandbox" | sandbox/package-lock.json'
-          path: "sandbox/node_modules"
-          restoreKeys: |
-            "$(Agent.OS)" | "node-sandbox" | sandbox/package-lock.json
-            "$(Agent.OS)" | "node-sandbox"
-
       - bash: "make install"
         displayName: Install repo
 
