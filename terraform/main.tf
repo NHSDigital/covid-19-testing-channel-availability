@@ -26,7 +26,7 @@ module "identity-service" {
 
 
 
-resource "apigee_target_server" "coid-19-testing-availablity" {
+resource "apigee_target_server" "covid-19-testing-availablity" {
     count   = length(regexall("sandbox", var.apigee_environment)) > 0 ? 0 : 1
     name    = "covid-19-testing-channel-availability"
     host    = var.covid-19-testing-channel-availability-host
